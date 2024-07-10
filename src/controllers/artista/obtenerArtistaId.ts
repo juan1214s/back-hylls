@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { Artista } from "../../entities/artista";
 import { AppDataSource } from "../../db";
 
-export const obtenerArtistaPorId = async (req: Request, res: Response) => {
+export const obtenerArtistaId = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
 

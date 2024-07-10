@@ -8,7 +8,7 @@ export class Banner extends BaseEntity {
     Id_banner: number;
 
     @Column({ type: 'varchar', length: 1000 })
-    url: string;
+    banner: string;
 
     @Column({ type: 'varchar', length: 1000 })
     id_imgur: string;

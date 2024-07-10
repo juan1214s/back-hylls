@@ -35,8 +35,6 @@ export const crearNoticia = async (req: Request, res: Response) => {
     // Guardar la noticia en la base de datos
     await noticiaRepository.save(noticia);
 
-    console.log("Noticia creada correctamente");
-
     // Enviar respuesta JSON con la noticia creada
     res.status(200).json({ message: "Noticia creada correctamente"});
   } catch (error) {

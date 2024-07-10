@@ -3,9 +3,13 @@ import { Artista } from "../../entities/artista";
 import { AppDataSource } from "../../db";
 
 export const eliminarArtista = async (req: Request, res: Response) => {
-    const { id } = req.params;
-
     try {
+        const { id } = req.params;
+
+        if (!id) {
+            return res.status(400).json({message: "ID del artista es requerido."});
+        }
+
         // Verificar si el artista existe
         const artistaExistente = await AppDataSource.getRepository(Artista).findOne({ where: { Id_artista: Number(id) } });
 

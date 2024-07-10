@@ -1,13 +1,12 @@
-import {BaseEntity, Column, Entity, PrimaryGeneratedColumn} from "typeorm"
+import {BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm"
+import { ImagenNoticia } from "./imagenNoticia"
+
 
 @Entity('noticia')
 export class Noticia extends BaseEntity{
 
     @PrimaryGeneratedColumn()
     Id_noticia: number
-
-    @Column({type: 'varchar', length: 1000})
-    imagen: string
 
     @Column({type: 'varchar', length: 1000})
     titulo: string
@@ -20,5 +19,8 @@ export class Noticia extends BaseEntity{
 
     @Column({type: "date"})
     fecha: Date
+
+    @OneToMany(()=> ImagenNoticia, ImagenNoticia => ImagenNoticia.noticia)
+    imagenes: ImagenNoticia[]
 
 }
