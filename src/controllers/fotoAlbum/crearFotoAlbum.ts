@@ -1,9 +1,10 @@
 import FormData from 'form-data';
 import axios from "axios";
-import { Banner } from '../../entities/banner';
+import { BannerMobil } from '../../entities/bannerMobil';
 import { Request, Response } from 'express';
 import { AppDataSource } from '../../db';
-import { Artista } from '../../entities/artista';
+import { Album_artista } from '../../entities/album_artista';
+import { FotoAlbum } from '../../entities/foto_album';
 
 const CLIENT_ID = '1088ff90a166b78'; // Reemplaza con tu CLIENT_ID de Imgur
 
@@ -41,44 +42,44 @@ const subirImagen = async (archivo: UploadedFile): Promise<{ url: string, id_img
   return { url: imgurData.link, id_imgur: imgurData.id };
 };
 
-export const crearBanner = async (req: Request, res: Response) => {
+export const crearFotoAlbum = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
     if (!id) {
-        return res.status(404).json({message: "ID del artista es requerido."});
+        return res.status(404).json({message: "ID del album es requerido."});
     }
 
-    const artistaExistente = await AppDataSource.getRepository(Artista).findOne({ where: { Id_artista: Number(id) } });
+    const albumExiste = await AppDataSource.getRepository(Album_artista).findOne({ where: { Id_album: Number(id) } });
 
-    if (!artistaExistente) {
-        return res.status(404).json({ error: "El artista no fue encontrado." });
+    if (!albumExiste) {
+        return res.status(404).json({ error: "El album no fue encontrado." });
     }
 
     // Verificar que se hayan enviado los archivos requeridos
-    if (!req.files || !req.files.banner) {
-      return res.status(400).json({ error: "Se requiere el banner." });
+    if (!req.files || !req.files.fotoAlbum) {
+      return res.status(400).json({ error: "Se requieren la fotografia." });
     }
 
     // Desestructurar los archivos de la solicitud
-    const { banner } = req.files as { [fieldname: string]: UploadedFile };
+    const { fotoAlbum } = req.files as { [fieldname: string]: UploadedFile };
 
     // Subir las imágenes a Imgur secuencialmente y obtener sus URLs y IDs
-    const { url: bannerUrl, id_imgur: bannerImgurId } = await subirImagen(banner);
+    const { url: fotoAlbumUrl, id_imgur: fotoImgurId } = await subirImagen(fotoAlbum);
 
-    // Crear el objeto Banner con los datos de la imagen subida
-    const bannerData = new Banner();
-    bannerData.banner = bannerUrl;
-    bannerData.id_imgur = bannerImgurId;
-    bannerData.artista = artistaExistente;
+    // Crear el objeto foto con los datos de la imagen subida
+    const fotoData = new FotoAlbum();
+    fotoData.foto = fotoAlbumUrl;
+    fotoData.id_imgur = fotoImgurId;
+    fotoData.albumArtista = albumExiste;
 
-    // Guardar el banner en la base de datos
-    await AppDataSource.getRepository(Banner).save(bannerData);
+    // Guardar la fotografia en la base de datos
+    await AppDataSource.getRepository(FotoAlbum).save(fotoData);
 
     // Responder con el banner creado
-    res.status(200).json({ message: "Banner creado correctamente."});
+    res.status(200).json({ message: "La fotografia se creo correctamente."});
   } catch (error) {
-    console.error(`Error al crear el banner: ${error}`);
-    res.status(500).json({ error: "Error interno al crear el banner." });
+    console.error(`Error al crear la fotografia: ${error}`);
+    res.status(500).json({ error: "Error interno al crear la fotografia." });
   }
 };

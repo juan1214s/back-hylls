@@ -1,6 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, OneToMany } from "typeorm"
 import { Artista } from "./artista"
 import { Canciones_artista } from "./canciones_artista"
+import { FotoAlbum } from "./foto_album"
 
 @Entity('album_artista')
 export class Album_artista{
@@ -14,13 +15,13 @@ export class Album_artista{
     @Column({type: "date"})
     fecha_album: Date
 
-    @Column({type: 'varchar', length: 5000})
-    foto_album: string
-
     @ManyToOne(()=> Artista, artista => artista.artista_album)
     artista: Artista
     
     @OneToMany(()=> Canciones_artista, cancion => cancion.artista_album, {cascade: true})
     cancion: Canciones_artista[]
+
+    @OneToMany(()=> FotoAlbum, fotoAlbum =>fotoAlbum.albumArtista)
+    fotoAlbum: FotoAlbum[]
 
 }

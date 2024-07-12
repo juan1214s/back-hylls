@@ -14,7 +14,7 @@ import { Banner } from "./entities/banner";
 import { BannerMobil } from "./entities/bannerMobil";
 import { ImagenNoticia } from "./entities/imagenNoticia";
 import { ImagenPlaylist } from "./entities/imagenPlayList";
-
+import { FotoAlbum } from "./entities/foto_album";
 
 dotenv.config();
 
@@ -42,6 +42,7 @@ export const AppDataSource = new DataSource({
     BannerMobil,
     ImagenNoticia,
     ImagenPlaylist,
+    FotoAlbum,
   
 ], // Aquí van las entities
   subscribers: [],

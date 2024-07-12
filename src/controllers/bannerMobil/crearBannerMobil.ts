@@ -1,6 +1,6 @@
 import FormData from 'form-data';
 import axios from "axios";
-import { Banner } from '../../entities/banner';
+import { BannerMobil } from '../../entities/bannerMobil';
 import { Request, Response } from 'express';
 import { AppDataSource } from '../../db';
 import { Artista } from '../../entities/artista';
@@ -41,7 +41,7 @@ const subirImagen = async (archivo: UploadedFile): Promise<{ url: string, id_img
   return { url: imgurData.link, id_imgur: imgurData.id };
 };
 
-export const crearBanner = async (req: Request, res: Response) => {
+export const crearBannerMobil = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
@@ -56,29 +56,29 @@ export const crearBanner = async (req: Request, res: Response) => {
     }
 
     // Verificar que se hayan enviado los archivos requeridos
-    if (!req.files || !req.files.banner) {
-      return res.status(400).json({ error: "Se requiere el banner." });
+    if (!req.files || !req.files.bannerMobil) {
+      return res.status(400).json({ error: "Se requieren el banner mobil." });
     }
 
     // Desestructurar los archivos de la solicitud
-    const { banner } = req.files as { [fieldname: string]: UploadedFile };
+    const { bannerMobil } = req.files as { [fieldname: string]: UploadedFile };
 
     // Subir las imágenes a Imgur secuencialmente y obtener sus URLs y IDs
-    const { url: bannerUrl, id_imgur: bannerImgurId } = await subirImagen(banner);
+    const { url: bannerUrl, id_imgur: bannerImgurId } = await subirImagen(bannerMobil);
 
     // Crear el objeto Banner con los datos de la imagen subida
-    const bannerData = new Banner();
-    bannerData.banner = bannerUrl;
+    const bannerData = new BannerMobil();
+    bannerData.bannerMobil = bannerUrl;
     bannerData.id_imgur = bannerImgurId;
     bannerData.artista = artistaExistente;
 
     // Guardar el banner en la base de datos
-    await AppDataSource.getRepository(Banner).save(bannerData);
+    await AppDataSource.getRepository(BannerMobil).save(bannerData);
 
     // Responder con el banner creado
-    res.status(200).json({ message: "Banner creado correctamente."});
+    res.status(200).json({ message: "Banner mobil creado correctamente."});
   } catch (error) {
     console.error(`Error al crear el banner: ${error}`);
-    res.status(500).json({ error: "Error interno al crear el banner." });
+    res.status(500).json({ error: "Error interno al crear el banner mobil." });
   }
 };
