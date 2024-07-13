@@ -1,10 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, OneToMany } from "typeorm"
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, OneToMany, BaseEntity } from "typeorm"
 import { Artista } from "./artista"
 import { Canciones_artista } from "./canciones_artista"
 import { FotoAlbum } from "./foto_album"
 
 @Entity('album_artista')
-export class Album_artista{
+export class Album_artista extends BaseEntity{
 
     @PrimaryGeneratedColumn()
     Id_album: number

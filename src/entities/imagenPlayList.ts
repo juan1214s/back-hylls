@@ -14,6 +14,6 @@ export class ImagenPlaylist extends BaseEntity {
     id_imgur: string;
 
     @ManyToOne(() => Play_list, playlist => playlist.imagenes)
-    @JoinColumn({ name: 'playlistId' })  // Asegúrate de que la columna FK se llame playlistId
+    @JoinColumn({ name: 'playlistId' }) 
     playlist: Play_list;
 }

@@ -9,7 +9,13 @@ import bannerRoutes from "./routes/banner.routes"
 import fileUpload from 'express-fileupload';
 import methodOverride from 'method-override'; 
 import bannnerMobilRoutes from "./routes/bannerMobil.routes";
+import albumRoutes from "./routes/album.routes";
 import fotoAlbunRoutes from "./routes/fotoAlbum.routes";
+import cancionRoutes from "./routes/cancion.routes";
+import dataContacto from "./routes/dataContacto.routes";
+import fotoArtistaRoutes from "./routes/fotoArtista.routes";
+import fotoPlayListRoutes from "./routes/fotoPlayList.routes";
+import fotoNoticiaRoutes from "./routes/fotoNoticia.routes";
 
 const app = express();
 
@@ -38,6 +44,12 @@ app.use('/Hylls', usuarioRoutes);
 app.use('/Hylls', bannerRoutes);
 app.use('/Hylls', bannnerMobilRoutes);
 app.use('/Hylls', fotoAlbunRoutes);
+app.use('/Hylls', albumRoutes);
+app.use('/Hylls', cancionRoutes);
+app.use('/Hylls', dataContacto);
+app.use('/Hylls', fotoArtistaRoutes);
+app.use('/Hylls', fotoPlayListRoutes);
+app.use('/Hylls', fotoNoticiaRoutes);
 
 
 export default app;
