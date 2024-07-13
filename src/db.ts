@@ -2,7 +2,6 @@ import { DataSource } from "typeorm";
 import { Album_artista } from "./entities/album_artista";
 import { Artista } from "./entities/artista";
 import { Canciones_artista } from "./entities/canciones_artista";
-import { Datos_de_contacto } from "./entities/datos_contacto"
 import { Noticia } from "./entities/noticia"
 import { Play_list } from "./entities/play_list"
 import { Usuarios } from "./entities/usuarios"
@@ -15,6 +14,7 @@ import { BannerMobil } from "./entities/bannerMobil";
 import { ImagenNoticia } from "./entities/imagenNoticia";
 import { ImagenPlaylist } from "./entities/imagenPlayList";
 import { FotoAlbum } from "./entities/foto_album";
+import { Cancion } from "./entities/cancion";
 
 dotenv.config();
 
@@ -31,7 +31,6 @@ export const AppDataSource = new DataSource({
     Album_artista, 
     Artista, 
     Canciones_artista,
-    Datos_de_contacto,
     Noticia,
     Play_list,
     Usuarios,
@@ -43,6 +42,7 @@ export const AppDataSource = new DataSource({
     ImagenNoticia,
     ImagenPlaylist,
     FotoAlbum,
+    Cancion,
   
 ], // Aquí van las entities
   subscribers: [],

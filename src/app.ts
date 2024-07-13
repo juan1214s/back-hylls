@@ -12,10 +12,12 @@ import bannnerMobilRoutes from "./routes/bannerMobil.routes";
 import albumRoutes from "./routes/album.routes";
 import fotoAlbunRoutes from "./routes/fotoAlbum.routes";
 import cancionRoutes from "./routes/cancion.routes";
-import dataContacto from "./routes/dataContacto.routes";
 import fotoArtistaRoutes from "./routes/fotoArtista.routes";
 import fotoPlayListRoutes from "./routes/fotoPlayList.routes";
 import fotoNoticiaRoutes from "./routes/fotoNoticia.routes";
+import loginRoutes from "./routes/login.routes";
+import apiEmailRoutes from "./routes/email.routes";
+import cancionIndividualRoutes from "./routes/cancionIndividual.routes"
 
 const app = express();
 
@@ -46,10 +48,12 @@ app.use('/Hylls', bannnerMobilRoutes);
 app.use('/Hylls', fotoAlbunRoutes);
 app.use('/Hylls', albumRoutes);
 app.use('/Hylls', cancionRoutes);
-app.use('/Hylls', dataContacto);
 app.use('/Hylls', fotoArtistaRoutes);
 app.use('/Hylls', fotoPlayListRoutes);
 app.use('/Hylls', fotoNoticiaRoutes);
+app.use('/Hylls', loginRoutes);
+app.use('/Hylls', apiEmailRoutes);
+app.use('/Hylls', cancionIndividualRoutes);
 
 
 export default app;

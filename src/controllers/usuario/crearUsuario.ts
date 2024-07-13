@@ -1,6 +1,7 @@
 import { Usuarios } from "../../entities/usuarios";
 import { AppDataSource } from "../../db";
 import { Request, Response } from "express";
+import * as bcrypt from "bcrypt"
 
 export const crearUsuario = async (req: Request, res: Response) => {
   try {
@@ -12,7 +13,7 @@ export const crearUsuario = async (req: Request, res: Response) => {
     });
 
     if (usuarioExiste) {
-      return res.status(400).json({ error: "La noticia ya existe." });
+      return res.status(400).json({ error: "El usuario ya existe." });
     }
 
     // Validar que todos los campos requeridos están presentes
@@ -22,11 +23,15 @@ export const crearUsuario = async (req: Request, res: Response) => {
         .json({ error: "Todos los campos son requeridos." });
     }
 
+    //indica cuantas veces se va codificar el  password
+    const saltRounds = 5;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
     // Crear una nueva instancia de Noticia
     const usuarioNew = new Usuarios();
     usuarioNew.nombre = nombre;
     usuarioNew.usuario = usuario;
-    usuarioNew.password = password;
+    usuarioNew.password = hashedPassword;
     usuarioNew.rol = rol;
 
     // Obtener el repositorio de Noticia desde el DataSource
