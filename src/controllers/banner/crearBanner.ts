@@ -4,8 +4,9 @@ import { Banner } from '../../entities/banner';
 import { Request, Response } from 'express';
 import { AppDataSource } from '../../db';
 import { Artista } from '../../entities/artista';
+import * as dotenv from "dotenv"
 
-const CLIENT_ID = '1088ff90a166b78'; // Reemplaza con tu CLIENT_ID de Imgur
+dotenv.config();
 
 interface UploadedFile {
   name: string;
@@ -28,7 +29,7 @@ const subirImagen = async (archivo: UploadedFile): Promise<{ url: string, id_img
   // Enviar la imagen a Imgur
   const response = await axios.post('https://api.imgur.com/3/image', form, {
     headers: {
-      'Authorization': `Client-ID ${CLIENT_ID}`,
+      'Authorization': `Client-ID ${process.env.CLIENT_ID}`,
       ...form.getHeaders()
     }
   });

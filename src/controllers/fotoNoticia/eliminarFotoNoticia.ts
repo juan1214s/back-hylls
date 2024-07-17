@@ -2,9 +2,9 @@ import { ImagenNoticia } from "../../entities/imagenNoticia";
 import { AppDataSource } from "../../db";
 import { Request, Response } from "express";
 import axios from 'axios';
+import * as dotenv from "dotenv"
 
-// Es el token que devuelve Imgur para poder realizar las operaciones
-const ACCESS_TOKEN = '6237be3b97d53270329a58313f6a8bb3954f6343';
+dotenv.config();
 
 export const eliminarFotoNoticia = async (req: Request, res: Response) => {
     try {
@@ -31,7 +31,7 @@ export const eliminarFotoNoticia = async (req: Request, res: Response) => {
             // Eliminar la imagen de Imgur
             const imgurResponse = await axios.delete(`https://api.imgur.com/3/image/${id_imgur}`, {
                 headers: {
-                    Authorization: `Bearer ${ACCESS_TOKEN}`
+                    Authorization: `Bearer ${process.env.ACCESS_TOKEN}`
                 }
             });
 
